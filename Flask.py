@@ -227,7 +227,7 @@ def format_user_nodes(nodes, user1Nodes):
             "video_links": val.get_videos(),
         } 
 
-    formatted_nodes.append(node_info)
+        formatted_nodes.append(node_info)
     
     return formatted_nodes
 

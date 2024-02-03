@@ -14,7 +14,7 @@ import Search from './components/search'; // Import the Search component
 function App() {
   const [graphData, setGraphData] = useState({ nodes: [], links: [] });
   const [menuOpen, setMenuOpen] = useState(false);
-  const [contentMode, toggleMode] = useState(true); // can be content:true or user:false
+  const [contentMode, toggleMode] = useState(false); // can be content:true or user:false
 
   useEffect(() => {
     const fetchGraphData = async () => {
