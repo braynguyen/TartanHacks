@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react';
 import { ForceGraph3D } from 'react-force-graph';
 
 // Corrected the function component definition and destructuring props
-export default function TheMap({ graphData: graphData }) {
+export default function TheMap({ graphData }) {
     const [selectedNode, setSelectedNode] = useState(null); // State to hold the selected node
+    const [embed, setEmbed] = useState(null); // State to store the TikTok embed
 
     // Handler for node click events
     const handleNodeClick = node => {
@@ -14,6 +15,23 @@ export default function TheMap({ graphData: graphData }) {
     const handleClosePopup = () => {
         setSelectedNode(null); // Clear the selected node to hide the popup
     };
+
+    useEffect(() => {
+        const fetchEmbed = async () => {
+            try {
+                const res = await fetch('https://www.tiktok.com/oembed?url=' + selectedNode.video_links[0]);
+                const data = await res.json();
+                setEmbed(data.html);
+            } catch (error) {
+                console.error('Error fetching TikTok embed:', error);
+                setEmbed(null);
+            }
+        };
+
+        if (selectedNode) {
+            fetchEmbed();
+        }
+    }, [selectedNode]);
 
     return (
         <>
@@ -35,10 +53,7 @@ export default function TheMap({ graphData: graphData }) {
                     boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
                     color: 'black'
                 }}>
-                    <div>Id: {selectedNode.id}</div>
-                    <div>Name: {selectedNode.name}</div>
-                    <div>Value: {selectedNode.val}</div>
-                    <div>Links: ? {selectedNode.video_links[0]}</div>
+                    <div dangerouslySetInnerHTML={{ __html: embed }}></div>
                     
                     <button onClick={handleClosePopup}>Close</button>
                 </div>
