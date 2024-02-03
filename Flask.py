@@ -217,16 +217,15 @@ def format_user_nodes(nodes, user1Nodes):
             if clusters[key] not in formatted_nodes:
                 color = '#000000'
                 style = ""
-        
-    
-    node_info = {
-        "id": key,  # Assuming the ID is the hashtag itself
-        "name": f"#{key}",
-        "val": val.get_weight(),  # Assuming 'val' represents the number of edges
-        "color": color,
-        "style": style,
-        "video_links": val.get_videos(),
-    } 
+
+        node_info = {
+            "id": key,  # Assuming the ID is the hashtag itself
+            "name": f"#{key}",
+            "val": val.get_weight(),  # Assuming 'val' represents the number of edges
+            "color": color,
+            "style": style,
+            "video_links": val.get_videos(),
+        } 
 
     formatted_nodes.append(node_info)
     
