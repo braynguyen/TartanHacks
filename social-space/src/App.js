@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import './components/TheMap'
 import TheMap from './components/TheMap';
+import { useState, useEffect } from 'react'; 
 
 // information about the node data model:
 // node: {
@@ -46,8 +47,29 @@ const graphData = {
 };
 
 function App() {
+  const [graphData, setGraphData] = useState({ nodes: [], links: [] });
 
-  
+    useEffect(() => {
+      // Define the function to fetch graph data
+      const fetchGraphData = async () => {
+          try {
+              console.log("fetching")
+              const response = await fetch('http://localhost:5000/api/graph-data');
+              if (!response.ok) {
+                  throw new Error(`HTTP error! status: ${response.status}`);
+              }
+              const data = await response.json();
+              setGraphData(data);
+          } catch (error) {
+              console.error("Could not fetch graph data:", error);
+          } 
+      };
+      // Call the fetch function
+      fetchGraphData();
+  }, []); // empty dependency array to run on component mount
+
+
+
 
   return (
     <div className="App">
