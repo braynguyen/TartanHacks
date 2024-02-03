@@ -14,20 +14,21 @@ import Search from './components/search'; // Import the Search component
 function App() {
   const [graphData, setGraphData] = useState({ nodes: [], links: [] });
   const [menuOpen, setMenuOpen] = useState(false);
-  const [contentMode, toggleMode] = useState(false); // can be content:true or user:false
+  const [contentMode, toggleMode] = useState(true); // can be content:true or user:false
 
   useEffect(() => {
     const fetchGraphData = async () => {
       try {
         console.log("fetching");
         var response = '';
-        if(contentMode){
+        if (contentMode) {
           response = await fetch('http://localhost:5000/api/graph-data');
+          console.log('fetching general data');
         } else {
           response = await fetch('http://localhost:5000/api/graph-user-data');
-          console.log('fetching user data')
+          console.log('fetching user data');
         }
-
+  
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -37,8 +38,12 @@ function App() {
         console.error("Could not fetch graph data:", error);
       }
     };
+  
+    console.log("contentMode changed:", contentMode); // Debugging statement
+  
     fetchGraphData();
-  }, [], [contentMode]);
+  }, [contentMode]);
+  
 
   const handleMenuButtonClick = () => {
     setMenuOpen(!menuOpen);
@@ -75,27 +80,28 @@ function App() {
                 User
               </ToggleButton>
           </ToggleButtonGroup>
+          <Search/>
 
           <p><b>My Top Tags</b></p>
           <hr />
           <ol>
-            <li><a onClick={() => setMenuOpen(false)} href="/">#BookTok</a></li>
-            <li><a onClick={() => setMenuOpen(false)} href="/">#Pickleball</a></li>
-            <li><a onClick={() => setMenuOpen(false)} href="/">#Cooking</a></li>
+            <li><a onClick={() => setMenuOpen(false)} href="/#">#BookTok</a></li>
+            <li><a onClick={() => setMenuOpen(false)} href="/#">#Pickleball</a></li>
+            <li><a onClick={() => setMenuOpen(false)} href="/#">#Cooking</a></li>
           </ol>
         </div>
         <div>
           <p><b>My Toks</b></p>
           <hr />
           <ol>
-            <li><a onClick={() => setMenuOpen(false)} href="/">BookTok</a></li>
-            <li><a onClick={() => setMenuOpen(false)} href="/">CookTok</a></li>
-            <li><a onClick={() => setMenuOpen(false)} href="/">PickleballTok</a></li>
+            <li><a onClick={() => setMenuOpen(false)} href="/#">BookTok</a></li>
+            <li><a onClick={() => setMenuOpen(false)} href="/#">CookTok</a></li>
+            <li><a onClick={() => setMenuOpen(false)} href="/#">PickleballTok</a></li>
           </ol>
         </div>
         <div className='bottom'>
           <button className="invite-button" onClick={inviteFriend}>Invite Friend</button>
-          <Search/>
+          
         </div>
       </Menu>
       <TheMap
