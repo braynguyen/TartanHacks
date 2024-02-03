@@ -11,8 +11,8 @@ array_of_hashtags = [hashtag.strip() for hashtag in array_of_hashtags]
 
 # Prepare the Actor input
 run_input = {
-    "hashtags": ["funny"],
-    "resultsPerPage": 2,
+    "hashtags": array_of_hashtags,
+    "resultsPerPage": 20,
     "shouldDownloadVideos": False,
     "shouldDownloadCovers": False,
     "shouldDownloadSlideshowImages": False,
