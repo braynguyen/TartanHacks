@@ -10,12 +10,19 @@ import Search from './components/search'; // Import the Search component
 function App() {
   const [graphData, setGraphData] = useState({ nodes: [], links: [] });
   const [menuOpen, setMenuOpen] = useState(false);
+  const [contentMode, toggleMode] = useState(true); // can be content:true or user:false
 
   useEffect(() => {
     const fetchGraphData = async () => {
       try {
         console.log("fetching");
-        const response = await fetch('http://localhost:5000/api/graph-data');
+        var response = '';
+        if(contentMode){
+          response = await fetch('http://localhost:5000/api/graph-data');
+        } else {
+          response = await fetch('http://localhost:5000/api/graph-user-data');
+        }
+
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -26,7 +33,7 @@ function App() {
       }
     };
     fetchGraphData();
-  }, []);
+  }, [], [contentMode]);
 
   const handleMenuButtonClick = () => {
     setMenuOpen(!menuOpen);
@@ -37,7 +44,9 @@ function App() {
     alert("Invite your friend!");
   };
 
-  
+  const handleUserToggle = () => {
+    toggleMode(!contentMode);
+  }
 
   return (
     <div className="App">
