@@ -1,12 +1,10 @@
 from collections import defaultdict
 import csv
 from node import HashtagNode
-
-import time
+from getCounts import get_count
 
 # Record start time
-start_time = time.time()
-
+map_of_hashtags = get_count()
 
 # Specify the path to your CSV file
 paths = ['csv_files/videohashtags.csv','csv_files/videohashtags2.csv', 'csv_files/paidvideohashtags.csv', 'csv_files/paidvideohashtags2.csv']
@@ -21,14 +19,14 @@ def addNodes(hashtags):
         hashtag = hashtags[i]
         
         # use valid letters only
-        if is_ascii(hashtag):
+        if is_ascii(hashtag) and map_of_hashtags[hashtag] >= 100:
             # create node if not already created and add video url
             if hashtag not in nodes:
                 nodes[hashtag] = HashtagNode(hashtag)
             nodes[hashtag].add_video(row['webVideoUrl'])
             for j in range(i+1, len(hashtags)):
                 hashtag2 = hashtags[j]
-                if is_ascii(hashtag2):
+                if is_ascii(hashtag2) and map_of_hashtags[hashtag2] >= 100:
                     # create node if not already created and add video url
                     if hashtag2 not in nodes:
                         nodes[hashtag2] = HashtagNode(hashtag2)
@@ -53,13 +51,6 @@ for path in paths:
             hashtags = sorted(row['hashtags'].split())
             addNodes(hashtags)
                     
-# for key, val in nodes.items():
-#     print(key)
-#     print(val.get_edges())
-
-# Record end time
-end_time = time.time()
-
-# Calculate and print the elapsed time
-elapsed_time = end_time - start_time
-print(f"Elapsed Time: {elapsed_time} seconds")
+for key, val in nodes.items():
+    print(key)
+    print(val.get_edges())
