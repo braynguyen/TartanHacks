@@ -138,6 +138,7 @@ def format_nodes(nodes):
             "val": val.get_weight(),  # Assuming 'val' represents the number of edges
             "color": color,
             "style": style,
+            "video_links": val.get_videos(),
         }
 
         formatted_nodes.append(node_info)
