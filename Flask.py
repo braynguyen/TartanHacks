@@ -131,7 +131,7 @@ def get_cluster_number_for_nodes(nodes):
     outSet = set()
     for node in nodes:
         name = node.value
-        out.append(clusters[name])
+        outSet.append(clusters[name])
     return list(outSet)
 
 
@@ -158,7 +158,7 @@ def format_nodes(nodes):
         if key in clusters:
             clusterId = clusters[key]
             color = colors[clusterId]
-            print(color, clusterId)
+
                     
         if key in user1Nodes.keys():
             style += "User1"
@@ -184,7 +184,7 @@ def format_nodes(nodes):
 formatted_nodes = format_nodes(nodes)
 
 
-user_formatted_nodes = format_nodes(user1Nodes)
+# user_formatted_nodes = format_nodes(user1Nodes)
 # print(formatted_nodes)
 # for node in formatted_nodes:
 #     print(node)
@@ -195,22 +195,46 @@ user_formatted_nodes = format_nodes(user1Nodes)
 @app.route('/api/graph-data', methods=['GET'])
 def get_graph_data():
     # Preparing the graph data
-    # nodes = [
-    #     {"id": "id1", "name": "#booger", "val": 400},
-    #     {"id": "id2", "name": "#bogger", "val": 42},
-    #     {"id": "id3", "name": "#logger", "val": 10},
-    #     {"id": "id4", "name": "#jogger", "val": 15},
-    #     {"id": "id5", "name": "#fogger", "val": 20},
-    # ] + [{"id": f"id{i+6}", "name": f"#name{i+6}", "val": (i+6) * 10} for i in range(95)]
+    graph_data = {"nodes": formatted_nodes, "links": formatted_links}
 
-    # links = [
-    #     {"source": "id1", "target": "id2", "distance": 100},
-    #     {"source": "id1", "target": "id3", "distance": 150},
-    #     {"source": "id2", "target": "id4", "distance": 80},
-    #     {"source": "id3", "target": "id4", "distance": 120},
-    #     {"source": "id4", "target": "id5", "distance": 50},
-    # ] + [{"source": f"id{i+6}", "target": f"id{i+7}", "distance": (i+7) * 2} for i in range(94)]
+    # Returning the graph data as JSON
+    return jsonify(graph_data)
 
+
+def format_user_nodes():
+    formatted_nodes = []
+    allKeys = get_cluster_number_for_nodes(key)
+    
+    for key, val in nodes.items():
+        style = ""
+        
+        # color = "#FF5733"
+        if key in clusters:
+            clusterId = clusters[key]
+            color = colors[clusterId]
+            style = "User1"
+            if clusters[key] not in formatted_nodes:
+                color = '#000000'
+                style = ""
+        
+    
+    node_info = {
+        "id": key,  # Assuming the ID is the hashtag itself
+        "name": f"#{key}",
+        "val": val.get_weight(),  # Assuming 'val' represents the number of edges
+        "color": color,
+        "style": style,
+        "video_links": val.get_videos(),
+    } 
+
+    formatted_nodes.append(node_info)
+    
+    return formatted_nodes
+
+user_formatted_nodes = format_user_nodes(user1Nodes)
+
+@app.route('/api/graph-data/user', methods=['GET'])
+def get_graph_user_data():
     graph_data = {"nodes": formatted_nodes, "links": formatted_links}
 
     # Returning the graph data as JSON
