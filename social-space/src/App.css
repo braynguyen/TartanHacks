@@ -127,6 +127,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  width: 100%;
 }
 
 .menu-button-container {
@@ -165,4 +166,23 @@ Note: Beware of modifying this element as it can break the animations - you shou
   to {
     transform: rotate(360deg);
   }
+}
+/* Add this to your existing CSS or create a new one */
+.search{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* margin: 10px; */
+  /* width: 100%; */
+}
+
+input {
+  width: 100%;
+}
+
+.search-input {
+  /* padding: 8px; */
+  /* width: 100%; */
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }

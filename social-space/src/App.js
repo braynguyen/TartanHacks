@@ -4,6 +4,8 @@ import './components/TheMap';
 import TheMap from './components/TheMap';
 import { useState, useEffect } from 'react';
 import { slide as Menu } from 'react-burger-menu';
+import Search from './components/search'; // Import the Search component
+
 
 function App() {
   const [graphData, setGraphData] = useState({ nodes: [], links: [] });
@@ -35,6 +37,8 @@ function App() {
     alert("Invite your friend!");
   };
 
+  
+
   return (
     <div className="App">
       <Menu isOpen={menuOpen} width={250} right onStateChange={({ isOpen }) => setMenuOpen(isOpen)}>
@@ -58,8 +62,9 @@ function App() {
             <li><a onClick={() => setMenuOpen(false)} href="/">PickleballTok</a></li>
           </ol>
         </div>
-        <div>
+        <div className='bottom'>
           <button className="invite-button" onClick={inviteFriend}>Invite Friend</button>
+          <Search/>
         </div>
       </Menu>
       <TheMap
