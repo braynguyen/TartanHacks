@@ -1,68 +1,72 @@
 import logo from './logo.svg';
 import './App.css';
-import './components/TheMap'
+import './components/TheMap';
 import TheMap from './components/TheMap';
-import { useState, useEffect, useRef } from 'react';
-import { slide as Menu } from 'react-burger-menu'; // Import the Slide component
-
-
-// Import the menuStyles.css
-// import './styles/menuStyles.css';
-// information about the node data model:
-// node: {
-//   "val" --> determines the size of the bubble
-//   "name" --> is what the hashtag would be
-//   "id" ---> can be the hashtag because they are unique
-// }
-// link: {
-//   source: "source of the edge"
-//   target: "destination of the edge"
-//   distance: "distance between source and target"
-// }
+import { useState, useEffect } from 'react';
+import { slide as Menu } from 'react-burger-menu';
 
 function App() {
   const [graphData, setGraphData] = useState({ nodes: [], links: [] });
-  const [menuOpen, setMenuOpen] = useState(false); // State to control menu open/close
+  const [menuOpen, setMenuOpen] = useState(false);
 
-    useEffect(() => {
-      // Define the function to fetch graph data
-      const fetchGraphData = async () => {
-          try {
-              console.log("fetching")
-              const response = await fetch('http://localhost:5000/api/graph-data');
-              if (!response.ok) {
-                  throw new Error(`HTTP error! status: ${response.status}`);
-              }
-              const data = await response.json();
-              setGraphData(data);
-          } catch (error) {
-              console.error("Could not fetch graph data:", error);
-          } 
-      };
-      // Call the fetch function
-      fetchGraphData();
-  }, []); // empty dependency array to run on component mount
+  useEffect(() => {
+    const fetchGraphData = async () => {
+      try {
+        console.log("fetching");
+        const response = await fetch('http://localhost:5000/api/graph-data');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        setGraphData(data);
+      } catch (error) {
+        console.error("Could not fetch graph data:", error);
+      }
+    };
+    fetchGraphData();
+  }, []);
 
-  // Function to handle menu button click
   const handleMenuButtonClick = () => {
     setMenuOpen(!menuOpen);
   };
 
+  const inviteFriend = () => {
+    // Add your logic for inviting friends here
+    alert("Invite your friend!");
+  };
+
   return (
     <div className="App">
-      {/* <header className="App-header"> */}
-        <Menu isOpen={menuOpen} width={250} right onStateChange={({ isOpen }) => setMenuOpen(isOpen)}>
-          {/* Add your menu items here */}
-          <a onClick={() => setMenuOpen(false)} href="/">Home</a>
-          <a onClick={() => setMenuOpen(false)} href="/about">About</a>
-          <a onClick={() => setMenuOpen(false)} href="/contact">Contact</a>
-        </Menu>
-          <TheMap
-            graphData={graphData}
-            linkDistance={link => link.distance}
-            zIndex={1}
-          />
-      {/* </header> */}
+      <Menu isOpen={menuOpen} width={250} right onStateChange={({ isOpen }) => setMenuOpen(isOpen)}>
+        {/* Add your menu items here */}
+        <div>
+          <h2>Social Space</h2>
+          <p><b>My Top Tags</b></p>
+          <hr />
+          <ol>
+            <li><a onClick={() => setMenuOpen(false)} href="/">#BookTok</a></li>
+            <li><a onClick={() => setMenuOpen(false)} href="/">#Pickleball</a></li>
+            <li><a onClick={() => setMenuOpen(false)} href="/">#Cooking</a></li>
+          </ol>
+        </div>
+        <div>
+          <p><b>My Toks</b></p>
+          <hr />
+          <ol>
+            <li><a onClick={() => setMenuOpen(false)} href="/">BookTok</a></li>
+            <li><a onClick={() => setMenuOpen(false)} href="/">CookTok</a></li>
+            <li><a onClick={() => setMenuOpen(false)} href="/">PickleballTok</a></li>
+          </ol>
+        </div>
+        <div>
+          <button className="invite-button" onClick={inviteFriend}>Invite Friend</button>
+        </div>
+      </Menu>
+      <TheMap
+        graphData={graphData}
+        linkDistance={link => link.distance}
+        zIndex={1}
+      />
     </div>
   );
 }

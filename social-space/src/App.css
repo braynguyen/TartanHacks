@@ -29,7 +29,7 @@
 
 /* Color/shape of burger icon bars on hover*/
 .bm-burger-bars-hover {
-  background: #a90000;
+  background: #0c55d2;
 }
 
 /* Position and sizing of clickable cross button */
@@ -73,12 +73,75 @@ Note: Beware of modifying this element as it can break the animations - you shou
 /* Individual item */
 .bm-item {
   display: inline-block;
+  margin-bottom: 10px;
+}
+
+/* Improved styling for links */
+.bm-item a {
+  text-decoration: none;
+  color: #ffffff; /* Change to your desired color */
+  font-size: 1.2em;
+  font-weight: bold;
+  transition: color 0.3s ease-in-out;
+}
+
+.bm-item a:hover {
+  color: #0c55d2; /* Change to your desired hover color */
+}
+
+/* Styling for the title */
+.bm-title {
+  font-family: 'YourCoolFont', sans-serif; /* Replace 'YourCoolFont' with the desired font name */
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #ffffff; /* Change to your desired color */
+  margin-bottom: 15px;
 }
 
 /* Styling of overlay */
 .bm-overlay {
   background: rgba(0, 0, 0, 0.3);
 }
+
+/* Styling of overlay */
+.bm-overlay {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* Add this to your existing CSS file or create a new one */
+
+/* Center the container div */
+.menu-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%; /* Ensure the container takes up the full height of the Menu */
+}
+
+.invite-button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.menu-button-container {
+  display: flex;
+  justify-content: center;
+}
+
+.menu-content {
+  flex: 1;
+}
+
+.invite-button:hover {
+  background-color: #45a049;
+}
+
 
 
 .App-header {
