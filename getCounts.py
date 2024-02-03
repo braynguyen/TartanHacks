@@ -2,7 +2,7 @@ from collections import defaultdict
 import csv
 
 # Specify the path to your CSV file
-paths = ['videohashtags.csv','videohashtags2.csv', 'paidvideohashtags.csv']
+paths = ['videohashtags.csv','videohashtags2.csv', 'paidvideohashtags.csv', 'paidvideohashtags2.csv']
 
 def is_ascii(s):
     return all(ord(char) < 128 for char in s)
