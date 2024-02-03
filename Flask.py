@@ -12,7 +12,8 @@ from graph.node import HashtagNode
 from graph.getCounts import get_count 
 
 # Record start time
-map_of_hashtags = get_count()
+map_of_hashtags = get_count(['csv_files/videohashtags.csv','csv_files/videohashtags2.csv', 'csv_files/paidvideohashtags.csv', 'csv_files/paidvideohashtags2.csv'])
+map_of_user_hashtags = get_count(['csv_files/brayhashtags.csv'])
 
 # Specify the path to your CSV file
 paths = ['./csv_files/videohashtags.csv', './csv_files/videohashtags2.csv', './csv_files/paidvideohashtags.csv', './csv_files/paidvideohashtags2.csv']
@@ -20,7 +21,9 @@ paths = ['./csv_files/videohashtags.csv', './csv_files/videohashtags2.csv', './c
 def is_ascii(s):
     return all(ord(char) < 128 for char in s)
 
+userPath = 'csv_files/ShreyTags.csv'
 nodes = {}
+user1Nodes = {}
 
 def addNodes(hashtags):
     for i in range(len(hashtags)):
@@ -51,7 +54,34 @@ def addNodes(hashtags):
                     nodes[hashtag].add_to(hashtag2)
                     nodes[hashtag2].add_to(hashtag)
                 
-                
+def addUserNodes(hashtags):
+    for i in range(len(hashtags)):
+        hashtag = hashtags[i]
+        # if hashtag == 'fyp' or hashtag == 'foryou' or hashtag == 'viral' or hashtag == 'foryoupage' or hashtag == 'fy' or hashtag == 'trending':
+        #     # print(hashtag)
+        #     continue
+        
+        # use valid letters only
+        
+        if is_ascii(hashtag):
+            # create node if not already created and add video url
+            if hashtag not in user1Nodes:
+                user1Nodes[hashtag] = HashtagNode(hashtag)
+            user1Nodes[hashtag].add_video('N/A')
+            for j in range(i+1, len(hashtags)):
+                hashtag2 = hashtags[j]
+                # if hashtag2 == 'fyp' or hashtag2 == 'foryou' or hashtag2 == 'viral' or hashtag2 == 'foryoupage' or hashtag2 == 'fy' or hashtag2 == 'trending':
+                #     # print(hashtag)
+                #     continue
+                if is_ascii(hashtag2):
+                    # create node if not already created and add video url
+                    if hashtag2 not in user1Nodes:
+                        user1Nodes[hashtag2] = HashtagNode(hashtag2)
+                    user1Nodes[hashtag2].add_video('N/A')
+                    
+                    # add the edge for both hashtag and hashtag2
+                    user1Nodes[hashtag].add_to(hashtag2)
+                    user1Nodes[hashtag2].add_to(hashtag)      
 
 for path in paths:
     csv_file_path = path
@@ -65,22 +95,45 @@ for path in paths:
             # Each 'row' is a dictionary with column names as keys
             hashtags = sorted(row['hashtags'].split())
             addNodes(hashtags)
-            
-            
+
+# USER
+
+# Open the CSV file
+with open(userPath, 'r', encoding='utf-8') as file:
+    # Create a CSV DictReader object
+    csv_reader = csv.DictReader(file)
+    
+    # Iterate through the rows in the CSV file
+    for row in csv_reader:
+        # Each 'row' is a dictionary with column names as keys
+        hashtags = sorted(row['hashtags'].split())
+        addUserNodes(hashtags)
+    
+
 formatted_links = []       
 for key, val in nodes.items():
    formatted_links += val.get_links()
+   
+# USER
+user_formatted_links = []       
+for key, val in user1Nodes.items():
+   user_formatted_links += val.get_links()
 
-output_nodes = []
+
+
 def format_nodes(nodes):
     formatted_nodes = []
 
     for key, val in nodes.items():
+        style = "None"
+        if key in user1Nodes.keys():
+            style = "User1"
 
         node_info = {
             "id": key,  # Assuming the ID is the hashtag itself
             "name": f"#{key}",
-            "val": val.get_weight()  # Assuming 'val' represents the number of edges
+            "val": val.get_weight(),  # Assuming 'val' represents the number of edges
+            "style": style
         }
         formatted_nodes.append(node_info)
 
@@ -90,6 +143,9 @@ def format_nodes(nodes):
 
 # formatted nodes will be sent to the client
 formatted_nodes = format_nodes(nodes)
+
+
+user_formatted_nodes = format_nodes(user1Nodes)
 # print(formatted_nodes)
 # for node in formatted_nodes:
 #     print(node)
@@ -120,6 +176,34 @@ def get_graph_data():
 
     # Returning the graph data as JSON
     return jsonify(graph_data)
+
+'''
+@app.route('/api/graph-data/user', methods=['GET'])
+def get_graph_data():
+    # Preparing the graph data
+    # nodes = [
+    #     {"id": "id1", "name": "#booger", "val": 400},
+    #     {"id": "id2", "name": "#bogger", "val": 42},
+    #     {"id": "id3", "name": "#logger", "val": 10},
+    #     {"id": "id4", "name": "#jogger", "val": 15},
+    #     {"id": "id5", "name": "#fogger", "val": 20},
+    # ] + [{"id": f"id{i+6}", "name": f"#name{i+6}", "val": (i+6) * 10} for i in range(95)]
+
+    # links = [
+    #     {"source": "id1", "target": "id2", "distance": 100},
+    #     {"source": "id1", "target": "id3", "distance": 150},
+    #     {"source": "id2", "target": "id4", "distance": 80},
+    #     {"source": "id3", "target": "id4", "distance": 120},
+    #     {"source": "id4", "target": "id5", "distance": 50},
+    # ] + [{"source": f"id{i+6}", "target": f"id{i+7}", "distance": (i+7) * 2} for i in range(94)]
+
+    graph_data = {"nodes": user_formatted_nodes, "links": user_formatted_links}
+
+    # Returning the graph data as JSON
+    return jsonify(graph_data)
+'''
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

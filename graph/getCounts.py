@@ -2,9 +2,7 @@ from collections import defaultdict
 import csv
 
 # Specify the path to your CSV file
-def get_count():
-    paths = ['csv_files/videohashtags.csv','csv_files/videohashtags2.csv', 'csv_files/paidvideohashtags.csv', 'csv_files/paidvideohashtags2.csv']
-
+def get_count(paths):
     def is_ascii(s):
         return all(ord(char) < 128 for char in s)
 
