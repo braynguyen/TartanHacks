@@ -2,8 +2,12 @@ import logo from './logo.svg';
 import './App.css';
 import './components/TheMap'
 import TheMap from './components/TheMap';
-import { useState, useEffect } from 'react'; 
+import { useState, useEffect, useRef } from 'react';
+import { slide as Menu } from 'react-burger-menu'; // Import the Slide component
 
+
+// Import the menuStyles.css
+// import './styles/menuStyles.css';
 // information about the node data model:
 // node: {
 //   "val" --> determines the size of the bubble
@@ -16,38 +20,9 @@ import { useState, useEffect } from 'react';
 //   distance: "distance between source and target"
 // }
 
-
-const graphData = {
-  nodes: [
-    {"id": "id1", "name": "#booger", "val": 400},
-    {"id": "id2", "name": "#bogger", "val": 42},
-    {"id": "id3", "name": "#logger", "val": 10},
-    {"id": "id4", "name": "#jogger", "val": 15},
-    {"id": "id5", "name": "#fogger", "val": 20},
-    // Adding the rest of the nodes up to 100
-    ...Array.from({ length: 95 }, (_, i) => ({
-      "id": `id${i + 6}`,
-      "name": `#name${i + 6}`,
-      "val": (i + 6) * 10
-    }))
-  ],
-  links: [
-    {"source": "id1", "target": "id2", "distance": 100},
-    {"source": "id1", "target": "id3", "distance": 150},
-    {"source": "id2", "target": "id4", "distance": 80},
-    {"source": "id3", "target": "id4", "distance": 120},
-    {"source": "id4", "target": "id5", "distance": 50},
-    // Adding the rest of the links
-    ...Array.from({ length: 94 }, (_, i) => ({
-      "source": `id${i + 6}`,
-      "target": `id${i + 7}`,
-      "distance": (i + 7) * 2
-    }))
-  ]
-};
-
 function App() {
   const [graphData, setGraphData] = useState({ nodes: [], links: [] });
+  const [menuOpen, setMenuOpen] = useState(false); // State to control menu open/close
 
     useEffect(() => {
       // Define the function to fetch graph data
@@ -68,22 +43,29 @@ function App() {
       fetchGraphData();
   }, []); // empty dependency array to run on component mount
 
-
-  // useEffect(() => {
-  //   const fetchUserData
-
-  // })
-
-
+  // Function to handle menu button click
+  const handleMenuButtonClick = () => {
+    setMenuOpen(!menuOpen);
+  };
 
   return (
     <div className="App">
-      <header className="App-header">
+      <header className="App-header"></header>
+      <div>
+        <Menu isOpen={menuOpen} width={250} right onStateChange={({ isOpen }) => setMenuOpen(isOpen)}>
+          {/* Add your menu items here */}
+          <a onClick={() => setMenuOpen(false)} href="/">Home</a>
+          <a onClick={() => setMenuOpen(false)} href="/about">About</a>
+          <a onClick={() => setMenuOpen(false)} href="/contact">Contact</a>
+        </Menu>
+
+
           <TheMap
             graphData={graphData}
-            linkDistance={link => link.distance} // Use the 'distance' property to determine link lengths
+            linkDistance={link => link.distance}
+            zIndex={1000}
           />
-      </header>
+      </div>
     </div>
   );
 }

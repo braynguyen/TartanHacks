@@ -1,0 +1,51 @@
+/* Add this to your App.css or a separate CSS file */
+/* Styles for the menu button */
+/* Adjust the size of the menu button as needed */
+.menu-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 40px; /* Adjust the width as needed */
+  height: 40px; /* Adjust the height as needed */
+  z-index: 1;
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #333;
+  outline: none;
+}
+
+.react-burger-menu-btn {
+  width: 10%;
+}
+  
+  /* Styles for the slide-out menu */
+  .bm-menu-wrap {
+    position: fixed;
+    top: 0;
+    height: 100%;
+    width: 10%;
+  }
+  
+  .bm-menu {
+    background-color: #333; /* Menu background color */
+    padding: 2em;
+    font-size: 1.2em;
+    left: 0; /* Set left to 0 to position the menu on the left edge */
+  }
+  
+  .bm-item {
+    display: block;
+    margin-bottom: 1em;
+  }
+  
+  .bm-item a {
+    color: #fff; /* Menu item text color */
+    text-decoration: none;
+  }
+  
+  .bm-overlay {
+    background: rgba(0, 0, 0, 0.3); /* Overlay color */
+  }
+  
