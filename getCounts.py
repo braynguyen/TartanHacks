@@ -2,38 +2,27 @@ from collections import defaultdict
 import csv
 
 # Specify the path to your CSV file
-csv_file_path = 'videohashtags.csv'
+paths = ['videohashtags.csv','videohashtags2.csv', 'paidvideohashtags.csv']
 
 def is_ascii(s):
     return all(ord(char) < 128 for char in s)
 
 map_of_hashtags = {}
-# Open the CSV file
-with open(csv_file_path, 'r', encoding='utf-8') as file:
-    # Create a CSV DictReader object
-    csv_reader = csv.DictReader(file)
-    
-    # Iterate through the rows in the CSV file
-    for row in csv_reader:
-        # Each 'row' is a dictionary with column names as keys
-        hashtagString = row['hashtags'].split()
-        for hashtag in hashtagString:
-            if is_ascii(hashtag):
-                map_of_hashtags[hashtag] = map_of_hashtags.get(hashtag, 0) + 1
-                
-csv_file_path2 = 'videohashtags2.csv'
+for path in paths:
+    csv_file_path = path
+    # Open the CSV file
+    with open(csv_file_path, 'r', encoding='utf-8') as file:
+        # Create a CSV DictReader object
+        csv_reader = csv.DictReader(file)
+        
+        # Iterate through the rows in the CSV file
+        for row in csv_reader:
+            # Each 'row' is a dictionary with column names as keys
+            hashtagString = row['hashtags'].split()
+            for hashtag in hashtagString:
+                if is_ascii(hashtag):
+                    map_of_hashtags[hashtag] = map_of_hashtags.get(hashtag, 0) + 1
 
-with open(csv_file_path2, 'r', encoding='utf-8') as file:
-    # Create a CSV DictReader object
-    csv_reader = csv.DictReader(file)
-    
-    # Iterate through the rows in the CSV file
-    for row in csv_reader:
-        # Each 'row' is a dictionary with column names as keys
-        hashtagString = row['hashtags'].split()
-        for hashtag in hashtagString:
-            if is_ascii(hashtag):
-                map_of_hashtags[hashtag] = map_of_hashtags.get(hashtag, 0) + 1
 
 map_of_hashtags = dict(sorted(map_of_hashtags.items(), key=lambda x: x[1], reverse=True))
 
