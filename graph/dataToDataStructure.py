@@ -2,9 +2,15 @@ from collections import defaultdict
 import csv
 from node import HashtagNode
 
+import time
+
+# Record start time
+start_time = time.time()
+
+
 # Specify the path to your CSV file
-# paths = ['../csv_files/videohashtags.csv','../csv_files/videohashtags2.csv', '../csv_files/paidvideohashtags.csv', '../csv_files/paidvideohashtags2.csv']
-paths = ['csv_files/braydensample.csv']
+paths = ['csv_files/videohashtags.csv','csv_files/videohashtags2.csv', 'csv_files/paidvideohashtags.csv', 'csv_files/paidvideohashtags2.csv']
+# paths = ['csv_files/braydensample.csv']
 def is_ascii(s):
     return all(ord(char) < 128 for char in s)
 
@@ -44,11 +50,16 @@ for path in paths:
         # Iterate through the rows in the CSV file
         for row in csv_reader:
             # Each 'row' is a dictionary with column names as keys
-            hashtags = row['hashtags'].split()
+            hashtags = sorted(row['hashtags'].split())
             addNodes(hashtags)
                     
-for key, val in nodes.items():
-    print(key)
-    print(val.get_edges())
+# for key, val in nodes.items():
+#     print(key)
+#     print(val.get_edges())
 
-        
+# Record end time
+end_time = time.time()
+
+# Calculate and print the elapsed time
+elapsed_time = end_time - start_time
+print(f"Elapsed Time: {elapsed_time} seconds")
