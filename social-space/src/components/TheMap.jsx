@@ -33,10 +33,13 @@ export default function TheMap({ graphData: graphData }) {
                     border: '1px solid #ddd',
                     borderRadius: '8px',
                     boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+                    color: 'black'
                 }}>
                     <div>Id: {selectedNode.id}</div>
                     <div>Name: {selectedNode.name}</div>
                     <div>Value: {selectedNode.val}</div>
+                    <div>Links: ? {selectedNode.video_links[0]}</div>
+                    
                     <button onClick={handleClosePopup}>Close</button>
                 </div>
             )}

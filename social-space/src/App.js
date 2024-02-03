@@ -50,22 +50,14 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header"></header>
-      <div>
-        <Menu isOpen={menuOpen} width={250} right onStateChange={({ isOpen }) => setMenuOpen(isOpen)}>
-          {/* Add your menu items here */}
-          <a onClick={() => setMenuOpen(false)} href="/">Home</a>
-          <a onClick={() => setMenuOpen(false)} href="/about">About</a>
-          <a onClick={() => setMenuOpen(false)} href="/contact">Contact</a>
-        </Menu>
-
-
-          <TheMap
+      <header className="App-header">
+        <TheMap
             graphData={graphData}
             linkDistance={link => link.distance}
             zIndex={1000}
           />
-      </div>
+
+      </header>
     </div>
   );
 }
