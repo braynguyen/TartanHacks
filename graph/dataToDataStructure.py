@@ -3,8 +3,8 @@ import csv
 from node import HashtagNode
 
 # Specify the path to your CSV file
-paths = ['../csv_files/videohashtags.csv','../csv_files/videohashtags2.csv', '../csv_files/paidvideohashtags.csv', '../csv_files/paidvideohashtags2.csv']
-
+# paths = ['../csv_files/videohashtags.csv','../csv_files/videohashtags2.csv', '../csv_files/paidvideohashtags.csv', '../csv_files/paidvideohashtags2.csv']
+paths = ['csv_files/braydensample.csv']
 def is_ascii(s):
     return all(ord(char) < 128 for char in s)
 
@@ -20,7 +20,7 @@ def addNodes(hashtags):
             if hashtag not in nodes:
                 nodes[hashtag] = HashtagNode(hashtag)
             nodes[hashtag].add_video(row['webVideoUrl'])
-            for j in range(i, len(hashtags)):
+            for j in range(i+1, len(hashtags)):
                 hashtag2 = hashtags[j]
                 if is_ascii(hashtag2):
                     # create node if not already created and add video url
@@ -47,6 +47,8 @@ for path in paths:
             hashtags = row['hashtags'].split()
             addNodes(hashtags)
                     
-                    
+for key, val in nodes.items():
+    print(key)
+    print(val.get_edges())
 
         
