@@ -126,15 +126,21 @@ def format_nodes(nodes):
 
     for key, val in nodes.items():
         style = "None"
+        color = "#89CFF0" # baby blue
         if key in user1Nodes.keys():
             style = "User1"
-
+            # no toggle for time being --> new request with different params required from front end to load user. Quentin knows what this means
+            color = "#FF5733"
+        
         node_info = {
             "id": key,  # Assuming the ID is the hashtag itself
             "name": f"#{key}",
             "val": val.get_weight(),  # Assuming 'val' represents the number of edges
-            "style": style
+            "color": color,
+            "style": style,
+            "video_links": val.get_videos(),
         }
+
         formatted_nodes.append(node_info)
 
     return formatted_nodes
