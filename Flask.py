@@ -25,16 +25,23 @@ nodes = {}
 def addNodes(hashtags):
     for i in range(len(hashtags)):
         hashtag = hashtags[i]
+        if hashtag == 'fyp' or hashtag == 'foryou' or hashtag == 'viral' or hashtag == 'foryoupage' or hashtag == 'fy' or hashtag == 'trending':
+            # print(hashtag)
+            continue
         
         # use valid letters only
-        if is_ascii(hashtag) and map_of_hashtags[hashtag] >= 100:
+        
+        if is_ascii(hashtag) and map_of_hashtags[hashtag] >= 50:
             # create node if not already created and add video url
             if hashtag not in nodes:
                 nodes[hashtag] = HashtagNode(hashtag)
             nodes[hashtag].add_video(row['webVideoUrl'])
             for j in range(i+1, len(hashtags)):
                 hashtag2 = hashtags[j]
-                if is_ascii(hashtag2) and map_of_hashtags[hashtag2] >= 100:
+                if hashtag2 == 'fyp' or hashtag2 == 'foryou' or hashtag2 == 'viral' or hashtag2 == 'foryoupage' or hashtag2 == 'fy' or hashtag2 == 'trending':
+                    # print(hashtag)
+                    continue
+                if is_ascii(hashtag2) and map_of_hashtags[hashtag2] >= 50:
                     # create node if not already created and add video url
                     if hashtag2 not in nodes:
                         nodes[hashtag2] = HashtagNode(hashtag2)
@@ -72,13 +79,8 @@ def format_nodes(nodes):
 
         node_info = {
             "id": key,  # Assuming the ID is the hashtag itself
-<<<<<<< HEAD
-            "name": val.value,
-            "val": val.edgeWeightIn  # Assuming 'val' represents the number of edges
-=======
             "name": f"#{key}",
             "val": val.get_weight()  # Assuming 'val' represents the number of edges
->>>>>>> 40b807ce4082ac66b5c39056e68b5866b4890308
         }
         formatted_nodes.append(node_info)
 
@@ -88,7 +90,7 @@ def format_nodes(nodes):
 
 # formatted nodes will be sent to the client
 formatted_nodes = format_nodes(nodes)
-print(formatted_nodes)
+# print(formatted_nodes)
 # for node in formatted_nodes:
 #     print(node)
 # ===============================================================
