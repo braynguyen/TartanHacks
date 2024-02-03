@@ -12,11 +12,18 @@ class HashtagNode:
         # videos associated with the hashtag
         self.videos = []
 
-    def add_to(self, node, weight):
-        self.nodeToWeight[node] = self.nodeToWeight.get(node, 0) + weight
+    def add_to(self, node):
+        self.nodeToWeight[node] = self.nodeToWeight.get(node, 0) + 1
         self.edgeWeightIn += 1
 
 
     # adds videos to the video list associated with this node
     def add_video(self, videolink):
         self.videos.append(videolink)
+        
+    def get_value(self):
+        return self.value
+    
+    def get_edges(self):
+        return self.nodeToWeight
+
