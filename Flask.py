@@ -23,7 +23,7 @@ paths = ['./csv_files/videohashtags.csv', './csv_files/videohashtags2.csv', './c
 def is_ascii(s):
     return all(ord(char) < 128 for char in s)
 
-userPath = 'csv_files/ShreyTags.csv'
+userPath = 'csv_files/brayhashtags.csv'
 nodes = {}
 user1Nodes = {}
 
@@ -59,9 +59,9 @@ def addNodes(hashtags):
 def addUserNodes(hashtags):
     for i in range(len(hashtags)):
         hashtag = hashtags[i]
-        # if hashtag == 'fyp' or hashtag == 'foryou' or hashtag == 'viral' or hashtag == 'foryoupage' or hashtag == 'fy' or hashtag == 'trending':
-        #     # print(hashtag)
-        #     continue
+        if hashtag == 'fyp' or hashtag == 'foryou' or hashtag == 'viral' or hashtag == 'foryoupage' or hashtag == 'fy' or hashtag == 'trending':
+            # print(hashtag)
+            continue
         
         # use valid letters only
         
@@ -72,9 +72,9 @@ def addUserNodes(hashtags):
             user1Nodes[hashtag].add_video('N/A')
             for j in range(i+1, len(hashtags)):
                 hashtag2 = hashtags[j]
-                # if hashtag2 == 'fyp' or hashtag2 == 'foryou' or hashtag2 == 'viral' or hashtag2 == 'foryoupage' or hashtag2 == 'fy' or hashtag2 == 'trending':
-                #     # print(hashtag)
-                #     continue
+                if hashtag2 == 'fyp' or hashtag2 == 'foryou' or hashtag2 == 'viral' or hashtag2 == 'foryoupage' or hashtag2 == 'fy' or hashtag2 == 'trending':
+                    # print(hashtag)
+                    continue
                 if is_ascii(hashtag2):
                     # create node if not already created and add video url
                     if hashtag2 not in user1Nodes:
@@ -98,9 +98,8 @@ for path in paths:
             hashtags = sorted(row['hashtags'].split())
             addNodes(hashtags)
 
-# USER
 
-# Open the CSV file
+
 with open(userPath, 'r', encoding='utf-8') as file:
     # Create a CSV DictReader object
     csv_reader = csv.DictReader(file)
@@ -137,8 +136,8 @@ def get_cluster_number_for_nodes(nodes):
         hashtag = name[1:]
         
         # the dataset we are loading did not hold these
-        if hashtag == 'fyp' or hashtag == 'foryou' or hashtag == 'viral' or hashtag == 'foryoupage' or hashtag == 'fy' or hashtag == 'trending':
-            continue
+        # if hashtag == 'fyp' or hashtag == 'foryou' or hashtag == 'viral' or hashtag == 'foryoupage' or hashtag == 'fy' or hashtag == 'trending':
+        #     continue
         
         if hashtag in clusters:
             outSet.add(hashtag)
@@ -208,11 +207,13 @@ def format_user_nodes(nodes, user1Nodes):
     for key, val in nodes.items():
         style = ""
         
-        # color = "#FF5733"
+        # some nodes are not in clusters
         if key in clusters:
             clusterId = clusters[key]
             color = colors[clusterId]
             style = "User1"
+            
+            # overwrite and turn invisible if not in user node cluster
             if clusters[key] not in formatted_nodes:
                 color = '#000000'
                 style = ""
