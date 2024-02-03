@@ -35,6 +35,20 @@ class HashtagNode:
         for key, weight in self.nodeToWeight.items():
             # if key == 'fyp' or key == 'foryou' or key == 'viral' or key == 'foryoupage' or key == 'fy' or key == 'trending':
             #     continue
+            if weight > 20 and len(linklist) <= 5:
+                link = {
+                    "source": self.value,
+                    "target": key,
+                    "distance": weight * 1000
+                }
+                linklist.append(link)
+        return linklist
+    
+    def get_user_links(self):
+        linklist = []
+        for key, weight in self.nodeToWeight.items():
+            # if key == 'fyp' or key == 'foryou' or key == 'viral' or key == 'foryoupage' or key == 'fy' or key == 'trending':
+            #     continue
             # if weight > 20 and len(linklist) <= 5:
             
             link = {

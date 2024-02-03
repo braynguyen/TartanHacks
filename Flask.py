@@ -117,7 +117,7 @@ for key, val in nodes.items():
 # USER
 user_formatted_links = []       
 for key, val in user1Nodes.items():
-   user_formatted_links += val.get_links()
+   user_formatted_links += val.get_user_links()
 
 
 
