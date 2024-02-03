@@ -7,16 +7,13 @@ class HashtagNode:
         self.nodeToWeight = {}
 
         # sum of the edgeWeights into this node
-        self.edgeWeightIn = 0;
+        self.edgeWeightIn = 0
 
         # videos associated with the hashtag
-        self.videos = [];
+        self.videos = []
 
     def add_to(self, node, weight):
-        if node in nodeToWeight:
-            nodeToWeight[node] += weight
-        else:
-            nodeToWeight[node] = weight
+        self.nodeToWeight[node] = self.nodeToWeight.get(node, 0) + weight
 
 
     # adds videos to the video list associated with this node
