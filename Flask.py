@@ -203,6 +203,7 @@ formatted_nodes = format_nodes(nodes)
 def format_user_nodes(nodes, user1Nodes):
     formatted_nodes = []
     allKeys = get_cluster_number_for_nodes(user1Nodes)
+    # print(allKeys)
     
     for key, val in nodes.items():
         style = ""
@@ -214,7 +215,7 @@ def format_user_nodes(nodes, user1Nodes):
             style = "User1"
             
             # overwrite and turn invisible if not in user node cluster
-            if clusters[key] not in allKeys:
+            if key not in allKeys:
                 color = '#000000'
                 style = ""
 
