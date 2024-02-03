@@ -18,9 +18,9 @@ user1Nodes = {}
 def addNodes(hashtags):
     for i in range(len(hashtags)):
         hashtag = hashtags[i]
-        if hashtag == 'fyp' or hashtag == 'foryou' or hashtag == 'viral' or hashtag == 'foryoupage' or hashtag == 'fy' or hashtag == 'trending':
+        # if hashtag == 'fyp' or hashtag == 'foryou' or hashtag == 'viral' or hashtag == 'foryoupage' or hashtag == 'fy' or hashtag == 'trending':
             # print(hashtag)
-            continue
+            # continue
         
         # use valid letters only
         
@@ -31,9 +31,9 @@ def addNodes(hashtags):
             nodes[hashtag].add_video(row['webVideoUrl'])
             for j in range(i+1, len(hashtags)):
                 hashtag2 = hashtags[j]
-                if hashtag2 == 'fyp' or hashtag2 == 'foryou' or hashtag2 == 'viral' or hashtag2 == 'foryoupage' or hashtag2 == 'fy' or hashtag2 == 'trending':
+                # if hashtag2 == 'fyp' or hashtag2 == 'foryou' or hashtag2 == 'viral' or hashtag2 == 'foryoupage' or hashtag2 == 'fy' or hashtag2 == 'trending':
                     # print(hashtag)
-                    continue
+                    # continue
                 if is_ascii(hashtag2) and map_of_hashtags[hashtag2] >= 5:
                     # create node if not already created and add video url
                     if hashtag2 not in nodes:
@@ -94,7 +94,7 @@ from community import community_louvain
 import matplotlib.cm as cm
 import matplotlib.pyplot as plt
 
-# returns dict mapping Node to cluster for all nodes in G
+# returns dict mapping Node.value to cluster for all nodes in G
 def get_clusters(nodes):
     G = nx.Graph()
 
@@ -107,9 +107,9 @@ def get_clusters(nodes):
 
     # clustering_coefficient = nx.average_clustering(G)
     # compute the best partition
-    partition = community_louvain.best_partition(G)
-    print(partition)
+    clusters = community_louvain.best_partition(G)
+    print(clusters)
 
-    return partition
+    return clusters
 
 get_clusters(user1Nodes)

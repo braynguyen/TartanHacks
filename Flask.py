@@ -115,8 +115,17 @@ with open(userPath, 'r', encoding='utf-8') as file:
 import random
 clusters = get_clusters(nodes)
 numClusters = max(clusters.values())
+
+def generate_random_color():
+    # Generate random values for the RGB components within a certain range
+    r = random.randint(50, 205)  # Limit the red component to be between 100 and 255
+    g = random.randint(0, 255)  # Limit the green component to be between 100 and 255
+    b = random.randint(0, 255)  # Limit the blue component to be between 100 and 255
+    return '#{:02x}{:02x}{:02x}'.format(r, g, b)  # Format the color code
+
+
 # colors = [''] * max(clusters.values())
-colors = ['#%06x' % random.randint(0, 0xFFFFFF) for _ in range(numClusters + 1)]
+colors = [generate_random_color() for _ in range(numClusters + 1)]
 
 
 formatted_links = []       
