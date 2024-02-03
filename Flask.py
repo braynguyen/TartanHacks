@@ -31,7 +31,7 @@ def addNodes(hashtags):
         
         # use valid letters only
         
-        if is_ascii(hashtag) and map_of_hashtags[hashtag] >= 50:
+        if is_ascii(hashtag) and map_of_hashtags[hashtag] >= 5:
             # create node if not already created and add video url
             if hashtag not in nodes:
                 nodes[hashtag] = HashtagNode(hashtag)
@@ -41,7 +41,7 @@ def addNodes(hashtags):
                 if hashtag2 == 'fyp' or hashtag2 == 'foryou' or hashtag2 == 'viral' or hashtag2 == 'foryoupage' or hashtag2 == 'fy' or hashtag2 == 'trending':
                     # print(hashtag)
                     continue
-                if is_ascii(hashtag2) and map_of_hashtags[hashtag2] >= 50:
+                if is_ascii(hashtag2) and map_of_hashtags[hashtag2] >= 5:
                     # create node if not already created and add video url
                     if hashtag2 not in nodes:
                         nodes[hashtag2] = HashtagNode(hashtag2)
