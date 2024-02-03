@@ -113,7 +113,7 @@ with open(userPath, 'r', encoding='utf-8') as file:
     
 
 import random
-clusters = get_clusters(nodes)
+clusters = get_clusters(nodes) # clusters: name --> cluster_number
 numClusters = max(clusters.values())
 
 def generate_random_color():
@@ -122,6 +122,18 @@ def generate_random_color():
     g = random.randint(0, 255)  # Limit the green component to be between 100 and 255
     b = random.randint(0, 255)  # Limit the blue component to be between 100 and 255
     return '#{:02x}{:02x}{:02x}'.format(r, g, b)  # Format the color code
+
+
+
+# returns an array of clusters that nodes are part of
+# example output: [1, 4, 39]
+def get_cluster_number_for_nodes(nodes):
+    outSet = set()
+    for node in nodes:
+        name = node.value
+        out.append(clusters[name])
+    return list(outSet)
+
 
 
 # colors = [''] * max(clusters.values())
@@ -135,23 +147,21 @@ for key, val in nodes.items():
 # USER
 user_formatted_links = []       
 for key, val in user1Nodes.items():
-   user_formatted_links += val.get_user_links()
-
-
+   user_formatted_links += val.get_user_links() # links in this sense are edges
 
 def format_nodes(nodes):
     formatted_nodes = []
 
     for key, val in nodes.items():
-        style = "None"
+        style = ""
         color = "#FF5733"
         if key in clusters:
             clusterId = clusters[key]
             color = colors[clusterId]
             print(color, clusterId)
                     
-        # if key in user1Nodes.keys():
-        #     style = "User1"
+        if key in user1Nodes.keys():
+            style += "User1"
         #     # no toggle for time being --> new request with different params required from front end to load user. Quentin knows what this means
         #     color = "#FF5733"
         

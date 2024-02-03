@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
-import { ForceGraph3D } from 'react-force-graph';
+import { ForceGraph3D, ThreeJSForceGraph } from 'react-force-graph';
+import * as THREE from 'three'; // Import the 'three' library
+
 
 // Corrected the function component definition and destructuring props
 export default function TheMap({ graphData }) {
@@ -40,7 +42,24 @@ export default function TheMap({ graphData }) {
             <ForceGraph3D
                 graphData={graphData}
                 onNodeClick={handleNodeClick}
+                // nodeThreeObject={node => {
+                //     const opacity = node.style === 'User1' ? 1.0 : 0.00; // Adjust opacity based on 'style'
+                //     const color = node.color
+                //     const nodeRadius = node.val / 5;
+
+                //     const material = new THREE.MeshBasicMaterial({
+                //         color: color,
+                //         transparent: true,
+                //         opacity: opacity,
+                //     });
+
+                //     const geometry = new THREE.SphereGeometry(nodeRadius);
+                //     const sphere = new THREE.Mesh(geometry, material);
+
+                //     return sphere;
+                // }}
             />
+
             {selectedNode && (
                 <div style={{
                     position: 'absolute',
