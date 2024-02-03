@@ -214,7 +214,7 @@ def format_user_nodes(nodes, user1Nodes):
             style = "User1"
             
             # overwrite and turn invisible if not in user node cluster
-            if clusters[key] not in formatted_nodes:
+            if clusters[key] not in allKeys:
                 color = '#000000'
                 style = ""
 
