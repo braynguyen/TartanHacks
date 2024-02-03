@@ -1,7 +1,10 @@
 from apify_client import ApifyClient
+from dotenv import load_dotenv
+load_dotenv()
+import os
 
 # Initialize the ApifyClient with your API token
-client = ApifyClient("apify_api_O6vB0s3dvxz1eOYpkiS77HkNkt9ypB1aRKgT")
+client = ApifyClient(os.getenv("APIFY_ID"))
 
 
 hashtags_file = open('tophashtags.txt', 'r')
@@ -21,7 +24,8 @@ run_input = {
 # Run the Actor and wait for it to finish
 run = client.actor("OtzYfK1ndEGdwWFKQ").call(run_input=run_input)
 
-hashtag_outfile = open('videohashtags.txt', 'w')
+hashtag_outfile = open('videohashtags2.csv', 'w')
+hashtag_outfile.write("id,webVideoUrl,hashtags\n") #header
 
 count = 1
 # Fetch and print Actor results from the run's dataset (if there are any)
