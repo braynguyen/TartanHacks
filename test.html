@@ -4,67 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cytoscape.js Tutorial</title>
-  <script src="https://cdn.jsdelivr.net/npm/cytoscape@3.20.2/dist/cytoscape.umd.min.js"></script>
   <style>
     body {
       font-family: 'Arial', sans-serif;
       margin: 0;
       padding: 0;
+      background-color: black;
     }
     #cy {
       width: 100vw;
       height: 100vh;
+      color: white;
       position: absolute;
     }
   </style>
+  <!-- Include Cytoscape library -->
+  <script src="https://cdn.jsdelivr.net/npm/cytoscape@3.20.2/dist/cytoscape.umd.min.js"></script>
 </head>
 <body>
   <div id="cy"></div>
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      // Initialize Cytoscape
-      const cy = cytoscape({
-        container: document.getElementById('cy'),
-        elements: [
-          { data: { id: 'node1' } },
-          { data: { id: 'node2' } },
-          { data: { id: 'edge1', source: 'node1', target: 'node2' } }
-        ],
-        style: [
-          {
-            selector: 'node',
-            style: {
-              'background-color': '#66ccff',
-              'label': 'data(id)'
-            }
-          },
-          {
-            selector: 'edge',
-            style: {
-              'width': 3,
-              'line-color': '#ccc',
-              'target-arrow-color': '#ccc',
-              'target-arrow-shape': 'triangle'
-            }
-          }
-        ],
-        layout: {
-          name: 'grid'
-        }
-      });
-
-      // Add more customization or interactions here
-
-      // Example: Zoom and Pan
-      cy.zoom(1.5); // Zoom in
-      cy.pan({ x: 100, y: 50 }); // Pan to a specific position
-
-      // Example: Handle node click event
-      cy.on('click', 'node', function (event) {
-        const node = event.target;
-        console.log('Clicked on node:', node.id());
-      });
-    });
-  </script>
+  <script src="index.js"></script>
 </body>
 </html>

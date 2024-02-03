@@ -7,7 +7,7 @@ import os
 client = ApifyClient(os.getenv("APIFY_ID"))
 
 
-hashtags_file = open('tophashtags.txt', 'r')
+hashtags_file = open('tophashtags2.txt', 'r')
 
 array_of_hashtags = hashtags_file.readlines()
 array_of_hashtags = [hashtag.strip() for hashtag in array_of_hashtags]
@@ -24,7 +24,7 @@ run_input = {
 # Run the Actor and wait for it to finish
 run = client.actor("GdWCkxBtKWOsKjdch").call(run_input=run_input)
 
-hashtag_outfile = open('paidvideohashtags.csv', 'w')
+hashtag_outfile = open('paidvideohashtags2.csv', 'w')
 hashtag_outfile.write("id,webVideoUrl,hashtags\n") #header
 
 count = 1
