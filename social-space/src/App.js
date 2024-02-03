@@ -1,6 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
 import './components/TheMap';
+import Button from '@mui/joy/Button';
+import ToggleButtonGroup from '@mui/joy/ToggleButtonGroup';
 import TheMap from './components/TheMap';
 import { useState, useEffect } from 'react';
 import { slide as Menu } from 'react-burger-menu';
@@ -54,6 +56,15 @@ function App() {
         {/* Add your menu items here */}
         <div>
           <h2>Social Space</h2>
+          <ToggleButtonGroup
+            value={"General"}
+            onChange={(event, newValue) => {
+              setValue(newValue);
+            }}
+          >
+            <Button value="General">General</Button>
+            <Button value="User">User</Button>
+          </ToggleButtonGroup>
           <p><b>My Top Tags</b></p>
           <hr />
           <ol>
