@@ -37,7 +37,7 @@ The opacity of social media algorithms has created a digital environment where u
 
 * **Brayden Nguyen** 
 [Github](https://github.com/braynguyen)
-[LinkedIn](https://github.com/braynguyen)
+[LinkedIn](https://www.linkedin.com/in/brayden-nguyen/)
 
 * **Jeremy Luu** 
 [Github](https://github.com/JemLuu)
