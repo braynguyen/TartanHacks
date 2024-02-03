@@ -7,14 +7,14 @@ import os
 client = ApifyClient(os.getenv("APIFY_ID"))
 
 
-hashtags_file = open('tophashtags.txt', 'r')
+tiktoklins_file = open('braydentiktoks.txt', 'r')
 
-array_of_hashtags = hashtags_file.readlines()
+array_of_hashtags = tiktoklins_file.readlines()
 array_of_hashtags = [hashtag.strip() for hashtag in array_of_hashtags]
 
 # Prepare the Actor input
 run_input = {
-    "hashtags": array_of_hashtags,
+    "links": array_of_hashtags,
     "resultsPerPage": 250,
     "shouldDownloadVideos": False,
     "shouldDownloadCovers": False,
