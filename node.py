@@ -14,6 +14,7 @@ class HashtagNode:
 
     def add_to(self, node, weight):
         self.nodeToWeight[node] = self.nodeToWeight.get(node, 0) + weight
+        self.edgeWeightIn += 1
 
 
     # adds videos to the video list associated with this node
