@@ -68,10 +68,11 @@ def format_nodes(nodes):
     formatted_nodes = []
 
     for key, val in nodes.items():
+
         node_info = {
             "id": key,  # Assuming the ID is the hashtag itself
-            "name": f"#{key}",
-            "val": len(val.get_edges())  # Assuming 'val' represents the number of edges
+            "name": val.value,
+            "val": val.edgeWeightIn  # Assuming 'val' represents the number of edges
         }
         formatted_nodes.append(node_info)
 
@@ -81,8 +82,9 @@ def format_nodes(nodes):
 
 # formatted nodes will be sent to the client
 formatted_nodes = format_nodes(nodes)
-for node in formatted_nodes:
-    print(node)
+print(formatted_nodes)
+# for node in formatted_nodes:
+#     print(node)
 # ===============================================================
 
 
