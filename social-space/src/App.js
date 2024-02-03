@@ -2,7 +2,9 @@ import logo from './logo.svg';
 import './App.css';
 import './components/TheMap';
 // import Button from '@mui/joy/Button';
-// import ToggleButtonGroup from '@mui/joy/ToggleButtonGroup';
+import ToggleButton from '@mui/material/ToggleButton'; // Correct import statement
+
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import TheMap from './components/TheMap';
 import { useState, useEffect } from 'react';
 import { slide as Menu } from 'react-burger-menu';
@@ -23,6 +25,7 @@ function App() {
           response = await fetch('http://localhost:5000/api/graph-data');
         } else {
           response = await fetch('http://localhost:5000/api/graph-user-data');
+          console.log('fetching user data')
         }
 
         if (!response.ok) {
@@ -56,15 +59,23 @@ function App() {
         {/* Add your menu items here */}
         <div>
           <h2>Social Space</h2>
-          {/* <ToggleButtonGroup
-            value={"General"}
-            onChange={(event, newValue) => {
-              setValue(newValue);
-            }}
-          >
-            <Button value="General">General</Button>
-            <Button value="User">User</Button>
-          </ToggleButtonGroup> */}
+          <ToggleButtonGroup
+              exclusive
+              onChange={(event, newValue) => {
+                if (newValue !== null) {
+                  console.log('change mode');
+                  toggleMode(!contentMode);
+                }
+              }}
+            >
+              <ToggleButton value="General" style={contentMode ? { backgroundColor: '#d3d3d3' } : {}}>
+                General
+              </ToggleButton>
+              <ToggleButton value="User" style={!contentMode ? { backgroundColor: '#d3d3d3' } : {}}>
+                User
+              </ToggleButton>
+          </ToggleButtonGroup>
+
           <p><b>My Top Tags</b></p>
           <hr />
           <ol>
