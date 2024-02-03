@@ -3,10 +3,7 @@ import csv
 from node import HashtagNode
 from getCounts import get_count
 
-import time
-
 # Record start time
-start_time = time.time()
 map_of_hashtags = get_count()
 
 # Specify the path to your CSV file
@@ -57,10 +54,3 @@ for path in paths:
 for key, val in nodes.items():
     print(key)
     print(val.get_edges())
-
-# Record end time
-end_time = time.time()
-
-# Calculate and print the elapsed time
-elapsed_time = end_time - start_time
-print(f"Elapsed Time: {elapsed_time} seconds")
