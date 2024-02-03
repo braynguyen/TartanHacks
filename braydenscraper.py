@@ -14,17 +14,13 @@ array_of_hashtags = [hashtag.strip() for hashtag in array_of_hashtags]
 
 # Prepare the Actor input
 run_input = {
-    "links": array_of_hashtags,
-    "resultsPerPage": 250,
-    "shouldDownloadVideos": False,
-    "shouldDownloadCovers": False,
-    "shouldDownloadSlideshowImages": False,
+    "postURLs": array_of_hashtags,
 }
 
 # Run the Actor and wait for it to finish
 run = client.actor("GdWCkxBtKWOsKjdch").call(run_input=run_input)
 
-hashtag_outfile = open('paidvideohashtags.csv', 'w')
+hashtag_outfile = open('braydensample.csv', 'w')
 hashtag_outfile.write("id,webVideoUrl,hashtags\n") #header
 
 count = 1
