@@ -128,7 +128,7 @@ def generate_random_color():
 # example output: [1, 4, 39]
 def get_cluster_number_for_nodes(nodes):
     # we do not want duplicates of cluster ids
-    outSet = set()
+    outSet = {}
     for key, val in nodes.items():
         name = val.get_value()
         
@@ -140,8 +140,11 @@ def get_cluster_number_for_nodes(nodes):
         #     continue
         
         if hashtag in clusters:
-            outSet.add(hashtag)
-    return list(outSet)
+            outSet[clusters[hashtag]] = outSet.get(clusters[hashtag], 0) + 1
+
+    sorted_outSet = dict(sorted(outSet.items(), key=lambda item: item[1], reverse=True))
+    
+    return list(sorted_outSet.keys())[0:5]
 
 
 
@@ -203,21 +206,24 @@ formatted_nodes = format_nodes(nodes)
 def format_user_nodes(nodes, user1Nodes):
     formatted_nodes = []
     allKeys = get_cluster_number_for_nodes(user1Nodes)
-    # print(allKeys)
+    print(allKeys)
     
     for key, val in nodes.items():
+        color = '#000000'
         style = ""
-        
-        # some nodes are not in clusters
+
         if key in clusters:
-            clusterId = clusters[key]
-            color = colors[clusterId]
-            style = "User1"
-            
-            # overwrite and turn invisible if not in user node cluster
-            if key not in allKeys:
+            if clusters[key] in allKeys:
+                clusterId = clusters[key]
+                color = colors[clusterId]
+                # print(color)
+                style = "User1" 
+            else:
                 color = '#000000'
-                style = ""
+            style = ""
+        else:
+            color = '#000000'
+            style = ""
 
         node_info = {
             "id": key,  # Assuming the ID is the hashtag itself
@@ -228,7 +234,7 @@ def format_user_nodes(nodes, user1Nodes):
             "video_links": val.get_videos(),
         } 
 
-    formatted_nodes.append(node_info)
+        formatted_nodes.append(node_info)
     
     return formatted_nodes
 
