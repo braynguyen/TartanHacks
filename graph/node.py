@@ -27,3 +27,17 @@ class HashtagNode:
     def get_edges(self):
         return self.nodeToWeight
 
+    def get_weight(self):
+        return self.edgeWeightIn
+
+    def get_links(self):
+        linklist = []
+        for key, weight in self.nodeToWeight.items():
+            link = {
+                "source": self.value,
+                "target": key,
+                "distance": weight
+            }
+            linklist.append(link)
+        return linklist
+            
