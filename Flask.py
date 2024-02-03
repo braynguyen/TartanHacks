@@ -128,10 +128,20 @@ def generate_random_color():
 # returns an array of clusters that nodes are part of
 # example output: [1, 4, 39]
 def get_cluster_number_for_nodes(nodes):
+    # we do not want duplicates of cluster ids
     outSet = set()
-    for node in nodes:
-        name = node.value
-        outSet.append(clusters[name])
+    for key, val in nodes.items():
+        name = val.get_value()
+        
+        # name starts with '#'
+        hashtag = name[1:]
+        
+        # the dataset we are loading did not hold these
+        if hashtag == 'fyp' or hashtag == 'foryou' or hashtag == 'viral' or hashtag == 'foryoupage' or hashtag == 'fy' or hashtag == 'trending':
+            continue
+        
+        if hashtag in clusters:
+            outSet.add(hashtag)
     return list(outSet)
 
 
@@ -191,19 +201,9 @@ formatted_nodes = format_nodes(nodes)
 # ===============================================================
 
 
-
-@app.route('/api/graph-data', methods=['GET'])
-def get_graph_data():
-    # Preparing the graph data
-    graph_data = {"nodes": formatted_nodes, "links": formatted_links}
-
-    # Returning the graph data as JSON
-    return jsonify(graph_data)
-
-
-def format_user_nodes():
+def format_user_nodes(nodes, user1Nodes):
     formatted_nodes = []
-    allKeys = get_cluster_number_for_nodes(key)
+    allKeys = get_cluster_number_for_nodes(user1Nodes)
     
     for key, val in nodes.items():
         style = ""
@@ -231,40 +231,26 @@ def format_user_nodes():
     
     return formatted_nodes
 
-user_formatted_nodes = format_user_nodes(user1Nodes)
+user_formatted_nodes = format_user_nodes(nodes, user1Nodes)
 
-@app.route('/api/graph-data/user', methods=['GET'])
+
+
+@app.route('/api/graph-user-data', methods=['GET'])
 def get_graph_user_data():
+    graph_data = {"nodes": user_formatted_nodes, "links": formatted_links}
+
+    # Returning the graph data as JSON
+    return jsonify(graph_data)
+
+
+@app.route('/api/graph-data', methods=['GET'])
+def get_graph_data():
+    # Preparing the graph data
     graph_data = {"nodes": formatted_nodes, "links": formatted_links}
 
     # Returning the graph data as JSON
     return jsonify(graph_data)
 
-'''
-@app.route('/api/graph-data/user', methods=['GET'])
-def get_graph_data():
-    # Preparing the graph data
-    # nodes = [
-    #     {"id": "id1", "name": "#booger", "val": 400},
-    #     {"id": "id2", "name": "#bogger", "val": 42},
-    #     {"id": "id3", "name": "#logger", "val": 10},
-    #     {"id": "id4", "name": "#jogger", "val": 15},
-    #     {"id": "id5", "name": "#fogger", "val": 20},
-    # ] + [{"id": f"id{i+6}", "name": f"#name{i+6}", "val": (i+6) * 10} for i in range(95)]
-
-    # links = [
-    #     {"source": "id1", "target": "id2", "distance": 100},
-    #     {"source": "id1", "target": "id3", "distance": 150},
-    #     {"source": "id2", "target": "id4", "distance": 80},
-    #     {"source": "id3", "target": "id4", "distance": 120},
-    #     {"source": "id4", "target": "id5", "distance": 50},
-    # ] + [{"source": f"id{i+6}", "target": f"id{i+7}", "distance": (i+7) * 2} for i in range(94)]
-
-    graph_data = {"nodes": user_formatted_nodes, "links": user_formatted_links}
-
-    # Returning the graph data as JSON
-    return jsonify(graph_data)
-'''
 
 
 
