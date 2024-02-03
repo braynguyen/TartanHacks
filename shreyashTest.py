@@ -1,7 +1,4 @@
-from flask import Flask, jsonify
-from flask_cors import CORS
 import networkx as nx
-from collections import defaultdict
 import csv
 from graph.node import HashtagNode
 from graph.getCounts import get_count 
@@ -90,40 +87,29 @@ for path in paths:
             addUserNodes(hashtags)
 
 
-def format_nodes(nodes):
-    formatted_nodes = []
 
-    for key, val in nodes.items():
-        style = "None"
-        if key in user1Nodes.keys():
-            style = "User1"
 
-        node_info = {
-            "id": key,  # Assuming the ID is the hashtag itself
-            "name": f"#{key}",
-            "val": val.get_weight(),  # Assuming 'val' represents the number of edges
-            "style": style
-        }
-        formatted_nodes.append(node_info)
+# We need to use the Louvain Algorithm for community detection
+from community import community_louvain
+import matplotlib.cm as cm
+import matplotlib.pyplot as plt
 
-    return formatted_nodes
-
-def get_graph_data():
+# returns dict mapping Node to cluster for all nodes in G
+def get_clusters(nodes):
     G = nx.Graph()
 
-    for key, val in user1Nodes.items():
-        for neighbor in val.get_edges():
-            G.add_edge(key, neighbor)
+    for key, val in nodes.items():
+        for neighbor, weight in val.get_edges().items():
+            print(neighbor, weight)
 
-    clustering_coefficient = nx.average_clustering(G)
+            # reminder: val.get_edges() returns a dictionary of string, int pairs
+            G.add_edge(key, neighbor, weight=weight)
 
-    formatted_nodes = format_nodes(user1Nodes)
-    formatted_links = []
-    for key, val in user1Nodes.items():
-        formatted_links += val.get_user_links()
+    # clustering_coefficient = nx.average_clustering(G)
+    # compute the best partition
+    partition = community_louvain.best_partition(G)
+    print(partition)
 
-    graph_data = {"nodes": formatted_nodes, "links": formatted_links, "clustering_coefficient": clustering_coefficient}
+    return partition
 
-    return jsonify(graph_data)
-
-get_graph_data()
+get_clusters(user1Nodes)

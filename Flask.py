@@ -11,6 +11,8 @@ import csv
 from graph.node import HashtagNode
 from graph.getCounts import get_count 
 
+from graph.get_clusters import get_clusters
+
 # Record start time
 map_of_hashtags = get_count(['csv_files/videohashtags.csv','csv_files/videohashtags2.csv', 'csv_files/paidvideohashtags.csv', 'csv_files/paidvideohashtags2.csv'])
 map_of_user_hashtags = get_count(['csv_files/brayhashtags.csv'])
@@ -110,6 +112,13 @@ with open(userPath, 'r', encoding='utf-8') as file:
         addUserNodes(hashtags)
     
 
+import random
+clusters = get_clusters(nodes)
+numClusters = max(clusters.values())
+# colors = [''] * max(clusters.values())
+colors = ['#%06x' % random.randint(0, 0xFFFFFF) for _ in range(numClusters + 1)]
+
+
 formatted_links = []       
 for key, val in nodes.items():
    formatted_links += val.get_links()
@@ -126,11 +135,16 @@ def format_nodes(nodes):
 
     for key, val in nodes.items():
         style = "None"
-        color = "#89CFF0" # baby blue
-        if key in user1Nodes.keys():
-            style = "User1"
-            # no toggle for time being --> new request with different params required from front end to load user. Quentin knows what this means
-            color = "#FF5733"
+        color = "#FF5733"
+        if key in clusters:
+            clusterId = clusters[key]
+            color = colors[clusterId]
+            print(color, clusterId)
+                    
+        # if key in user1Nodes.keys():
+        #     style = "User1"
+        #     # no toggle for time being --> new request with different params required from front end to load user. Quentin knows what this means
+        #     color = "#FF5733"
         
         node_info = {
             "id": key,  # Assuming the ID is the hashtag itself

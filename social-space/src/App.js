@@ -57,8 +57,6 @@ function App() {
           <a onClick={() => setMenuOpen(false)} href="/about">About</a>
           <a onClick={() => setMenuOpen(false)} href="/contact">Contact</a>
         </Menu>
-
-
           <TheMap
             graphData={graphData}
             linkDistance={link => link.distance}

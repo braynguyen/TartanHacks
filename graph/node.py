@@ -22,7 +22,7 @@ class HashtagNode:
         self.videos.append(videolink)
 
     def get_videos(self):
-        return self.videos 
+        return self.videos
         
     def get_value(self):
         return self.value
