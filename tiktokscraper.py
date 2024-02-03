@@ -1,7 +1,10 @@
 from apify_client import ApifyClient
+from dotenv import load_dotenv
+load_dotenv()
+import os
 
 # Initialize the ApifyClient with your API token
-client = ApifyClient("apify_api_O6vB0s3dvxz1eOYpkiS77HkNkt9ypB1aRKgT")
+client = ApifyClient(os.getenv("APIFY_ID"))
 
 
 hashtags_file = open('tophashtags.txt', 'r')
