@@ -22,6 +22,8 @@ export default function TheMap({ graphData }) {
                 const res = await fetch('https://www.tiktok.com/oembed?url=' + selectedNode.video_links[0]);
                 const data = await res.json();
                 setEmbed(data.html);
+                console.log(data.html);
+                console.log(data);
             } catch (error) {
                 console.error('Error fetching TikTok embed:', error);
                 setEmbed(null);
@@ -54,7 +56,7 @@ export default function TheMap({ graphData }) {
                     color: 'black'
                 }}>
                     <div dangerouslySetInnerHTML={{ __html: embed }}></div>
-                    
+
                     <button onClick={handleClosePopup}>Close</button>
                 </div>
             )}
