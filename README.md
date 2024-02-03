@@ -1,4 +1,4 @@
-# *The* Social Space - ~~Deconstructing the algorithm~~, to socially construct it  
+# The Social Space - ~~Deconstructing the algorithm~~, to socially construct it  
 
 ## Project Description
 
@@ -29,7 +29,7 @@ The opacity of social media algorithms has created a digital environment where u
 
 "Social Space" aims to democratize algorithmic knowledge, empowering users to make informed decisions about their digital consumption. Our future plans include extending the platform to various social media algorithms and incorporating additional features to further enhance user control.
 
-## Authors
+## The Team
 
 * **Quentin Romero Lauro** 
 [Github](https://github.com/QuentinRomeroLauro)
