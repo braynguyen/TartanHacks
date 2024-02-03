@@ -50,8 +50,7 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header"></header>
-      <div>
+      {/* <header className="App-header"> */}
         <Menu isOpen={menuOpen} width={250} right onStateChange={({ isOpen }) => setMenuOpen(isOpen)}>
           {/* Add your menu items here */}
           <a onClick={() => setMenuOpen(false)} href="/">Home</a>
@@ -63,9 +62,9 @@ function App() {
           <TheMap
             graphData={graphData}
             linkDistance={link => link.distance}
-            zIndex={1000}
+            zIndex={1}
           />
-      </div>
+      {/* </header> */}
     </div>
   );
 }
