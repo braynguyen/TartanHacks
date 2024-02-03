@@ -58,10 +58,11 @@ for path in paths:
             # Each 'row' is a dictionary with column names as keys
             hashtags = sorted(row['hashtags'].split())
             addNodes(hashtags)
-                    
+            
+            
+formatted_links = []       
 for key, val in nodes.items():
-    print(key)
-    print(val.get_edges())
+   formatted_links += val.get_links()
 
 output_nodes = []
 def format_nodes(nodes):
@@ -71,7 +72,7 @@ def format_nodes(nodes):
         node_info = {
             "id": key,  # Assuming the ID is the hashtag itself
             "name": f"#{key}",
-            "val": len(val.get_edges())  # Assuming 'val' represents the number of edges
+            "val": val.get_weight()  # Assuming 'val' represents the number of edges
         }
         formatted_nodes.append(node_info)
 
@@ -84,7 +85,6 @@ formatted_nodes = format_nodes(nodes)
 for node in formatted_nodes:
     print(node)
 # ===============================================================
-
 
 
 
@@ -107,7 +107,7 @@ def get_graph_data():
     #     {"source": "id4", "target": "id5", "distance": 50},
     # ] + [{"source": f"id{i+6}", "target": f"id{i+7}", "distance": (i+7) * 2} for i in range(94)]
 
-    graph_data = {"nodes": nodes, "links": links}
+    graph_data = {"nodes": formatted_nodes, "links": formatted_links}
 
     # Returning the graph data as JSON
     return jsonify(graph_data)
