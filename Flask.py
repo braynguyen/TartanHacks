@@ -115,6 +115,17 @@ import random
 clusters = get_clusters(nodes) # clusters: name --> cluster_number
 numClusters = max(clusters.values())
 
+def get_inverted_clusters(clusters):
+    inverted_clusters = {}
+    for name, number in clusters.items():
+        inverted_clusters.setdefault(number,[]).append(name)
+    top_3_numbers = sorted(inverted_clusters, key=lambda x: len(inverted_clusters[x]), reverse=True)[:3]
+    topOne = inverted_clusters[top_3_numbers[0]]
+    topTwo = inverted_clusters[top_3_numbers[1]]
+    topThree = inverted_clusters[top_3_numbers[2]]
+    return (topOne, topTwo, topThree)
+
+
 def generate_random_color():
     # Generate random values for the RGB components within a certain range
     r = random.randint(50, 205)  # Limit the red component to be between 100 and 255

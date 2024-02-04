@@ -35,7 +35,7 @@ SAFETY_SETTINGS = [
 
 class GooglePredictor(object):
     def __init__(self, model_name):
-        GOOGLE_API_KEY = "AIzaSyBk5p47MGD0-kSvzOQzrAwMReUHIMPO2b8"
+        GOOGLE_API_KEY = "<INSERTKEYHERE>"
         genai.configure(api_key=GOOGLE_API_KEY)
         self.model_name = model_name
         self.client = genai.GenerativeModel(model_name)
