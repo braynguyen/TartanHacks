@@ -217,7 +217,7 @@ formatted_nodes = format_nodes(nodes)
 def format_user_nodes(nodes, user1Nodes):
     formatted_nodes = []
     allKeys = get_cluster_number_for_nodes(user1Nodes)
-    print(allKeys)
+    # print(allKeys)
     
     for key, val in nodes.items():
         color = '#000000'

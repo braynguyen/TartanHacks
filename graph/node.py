@@ -19,7 +19,8 @@ class HashtagNode:
 
     # adds videos to the video list associated with this node
     def add_video(self, videolink):
-        self.videos.append(videolink)
+        if len(self.videos) < 5:
+            self.videos.append(videolink)
 
     def get_videos(self):
         return self.videos
