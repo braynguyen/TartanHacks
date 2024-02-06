@@ -14,7 +14,7 @@ from graph.getCounts import get_count
 from graph.get_clusters import get_clusters
 
 # Record start time
-map_of_hashtags = get_count(['csv_files/videohashtags.csv','csv_files/videohashtags2.csv', 'csv_files/paidvideohashtags.csv', 'csv_files/paidvideohashtags2.csv'])
+map_of_hashtags = get_count(['csv_files/videohashtags.csv','csv_files/videohashtags2.csv', 'csv_files/paidvideohashtags.csv', 'csv_files/paidvideohashtags2.csv', 'csv_files/scrapedhashtags.csv'])
 map_of_user_hashtags = get_count(['csv_files/brayhashtags.csv'])
 
 # Specify the path to your CSV file

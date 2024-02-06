@@ -17,28 +17,29 @@ def get_count(paths):
             # Iterate through the rows in the CSV file
             for row in csv_reader:
                 # Each 'row' is a dictionary with column names as keys
-                hashtagString = row['hashtags'].split()
-                for hashtag in hashtagString:
-                    if is_ascii(hashtag):
-                        map_of_hashtags[hashtag] = map_of_hashtags.get(hashtag, 0) + 1
+                if row['hashtags']:
+                    hashtagString = row['hashtags'].split()
+                    for hashtag in hashtagString:
+                        if is_ascii(hashtag):
+                            map_of_hashtags[hashtag] = map_of_hashtags.get(hashtag, 0) + 1
 
     map_of_hashtags = dict(sorted(map_of_hashtags.items(), key=lambda x: x[1], reverse=True))
-    return map_of_hashtags
 
-# Specify the CSV file path
-# csv_file_path = 'csv_files/hashtags_counts.csv'
+    # Specify the CSV file path
+    csv_file_path = 'csv_files/hashtags_counts.csv'
     
 
-# # Open the CSV file in write mode
-# with open(csv_file_path, 'w', newline='') as csv_file:
-#     # Create a CSV writer object
-#     csv_writer = csv.writer(csv_file)
+    # Open the CSV file in write mode
+    # with open(csv_file_path, 'w', newline='') as csv_file:
+    #     # Create a CSV writer object
+    #     csv_writer = csv.writer(csv_file)
 
-#     # Write the header row
-#     csv_writer.writerow(['Hashtag', 'Count'])
+    #     # Write the header row
+    #     csv_writer.writerow(['Hashtag', 'Count'])
 
-#     # Write the values from the hashmap
-#     for hashtag, count in map_of_hashtags.items():
-#         csv_writer.writerow([hashtag, count])
+    #     # Write the values from the hashmap
+    #     for hashtag, count in map_of_hashtags.items():
+    #         csv_writer.writerow([hashtag, count])
+    return map_of_hashtags
         
         
