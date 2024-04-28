@@ -192,62 +192,62 @@ def format_user_nodes(nodes, user1Nodes):
     
     return formatted_nodes
 
-map_of_hashtags = get_count(['csv_files/videohashtags.csv','csv_files/videohashtags2.csv', 'csv_files/paidvideohashtags.csv', 'csv_files/paidvideohashtags2.csv', 'csv_files/scrapedhashtags.csv'])
-map_of_user_hashtags = get_count(['csv_files/brayhashtags.csv'])
+# map_of_hashtags = get_count(['csv_files/videohashtags.csv','csv_files/videohashtags2.csv', 'csv_files/paidvideohashtags.csv', 'csv_files/paidvideohashtags2.csv', 'csv_files/scrapedhashtags.csv'])
+# map_of_user_hashtags = get_count(['csv_files/brayhashtags.csv'])
 
-# Specify the path to your CSV file
-paths = ['./csv_files/videohashtags.csv', './csv_files/videohashtags2.csv', './csv_files/paidvideohashtags.csv', './csv_files/paidvideohashtags2.csv']
-# paths = ['csv_files/braydensample.csv']
-def is_ascii(s):
-    return all(ord(char) < 128 for char in s)
+# # Specify the path to your CSV file
+# paths = ['./csv_files/videohashtags.csv', './csv_files/videohashtags2.csv', './csv_files/paidvideohashtags.csv', './csv_files/paidvideohashtags2.csv']
+# # paths = ['csv_files/braydensample.csv']
+# def is_ascii(s):
+#     return all(ord(char) < 128 for char in s)
 
-userPath = 'csv_files/brayhashtags.csv'
-nodes = {}
-user1Nodes = {}
+# userPath = 'csv_files/brayhashtags.csv'
+# nodes = {}
+# user1Nodes = {}
 
-for path in paths:
-    csv_file_path = path
-    # Open the CSV file
-    with open(csv_file_path, 'r', encoding='utf-8') as file:
-        # Create a CSV DictReader object
-        csv_reader = csv.DictReader(file)
+# for path in paths:
+#     csv_file_path = path
+#     # Open the CSV file
+#     with open(csv_file_path, 'r', encoding='utf-8') as file:
+#         # Create a CSV DictReader object
+#         csv_reader = csv.DictReader(file)
         
-        # Iterate through the rows in the CSV file
-        for row in csv_reader:
-            # Each 'row' is a dictionary with column names as keys
-            hashtags = sorted(row['hashtags'].split())
-            addNodes(hashtags)
+#         # Iterate through the rows in the CSV file
+#         for row in csv_reader:
+#             # Each 'row' is a dictionary with column names as keys
+#             hashtags = sorted(row['hashtags'].split())
+#             addNodes(hashtags)
 
 
 
-with open(userPath, 'r', encoding='utf-8') as file:
-    # Create a CSV DictReader object
-    csv_reader = csv.DictReader(file)
+# with open(userPath, 'r', encoding='utf-8') as file:
+#     # Create a CSV DictReader object
+#     csv_reader = csv.DictReader(file)
     
-    # Iterate through the rows in the CSV file
-    for row in csv_reader:
-        # Each 'row' is a dictionary with column names as keys
-        hashtags = sorted(row['hashtags'].split())
-        addUserNodes(hashtags)
+#     # Iterate through the rows in the CSV file
+#     for row in csv_reader:
+#         # Each 'row' is a dictionary with column names as keys
+#         hashtags = sorted(row['hashtags'].split())
+#         addUserNodes(hashtags)
     
 
-clusters = get_clusters(nodes) # clusters: name --> cluster_number
-numClusters = max(clusters.values())
+# clusters = get_clusters(nodes) # clusters: name --> cluster_number
+# numClusters = max(clusters.values())
 
-colors = [generate_random_color() for _ in range(numClusters + 1)]
+# colors = [generate_random_color() for _ in range(numClusters + 1)]
 
 
-formatted_links = []       
-for key, val in nodes.items():
-    formatted_links += val.get_links()
+# formatted_links = []       
+# for key, val in nodes.items():
+#     formatted_links += val.get_links()
 
-# USER
-user_formatted_links = []       
-for key, val in user1Nodes.items():
-    user_formatted_links += val.get_user_links() # links in this sense are edges
+# # USER
+# user_formatted_links = []       
+# for key, val in user1Nodes.items():
+#     user_formatted_links += val.get_user_links() # links in this sense are edges
 
-formatted_nodes = format_nodes(nodes)
-user_formatted_nodes = format_user_nodes(nodes, user1Nodes)
+# formatted_nodes = format_nodes(nodes)
+# user_formatted_nodes = format_user_nodes(nodes, user1Nodes)
 
 
 
