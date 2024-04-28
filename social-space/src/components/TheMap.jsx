@@ -12,6 +12,13 @@ export default function TheMap({ graphData }) {
     // refs
     const fgRef = useRef(); // Reference to the ForceGraph3D component
 
+    useEffect(() => {
+        if (fgRef.current) {
+          // Increase the charge strength to repel nodes
+          fgRef.current.d3Force('charge').strength(-1250); // Experiment with the value
+        }
+      }, []);
+
 
     // Handler for node click events
     const handleNodeClick = node => {
@@ -63,22 +70,10 @@ export default function TheMap({ graphData }) {
                 ref={fgRef}
                 graphData={graphData}
                 onNodeClick={handleNodeClick}
-                // nodeThreeObject={node => {
-                //     const opacity = node.style === 'User1' ? 1.0 : 0.00; // Adjust opacity based on 'style'
-                //     const color = node.color
-                //     const nodeRadius = node.val / 5;
-
-                //     const material = new THREE.MeshBasicMaterial({
-                //         color: color,
-                //         transparent: true,
-                //         opacity: opacity,
-                //     });
-
-                //     const geometry = new THREE.SphereGeometry(nodeRadius);
-                //     const sphere = new THREE.Mesh(geometry, material);
-
-                //     return sphere;
-                // }}
+                enableNodeDrag={false}
+                showNavInfo={true}
+                linkOpacity={0.1}
+                nodeOpacity={0.85}
             />
 
             {selectedNode && (

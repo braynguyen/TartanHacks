@@ -19,7 +19,7 @@ class HashtagNode:
 
     # adds videos to the video list associated with this node
     def add_video(self, videolink):
-        if len(self.videos) < 5:
+        if len(self.videos) < 1:
             self.videos.append(videolink)
 
     def get_videos(self):
@@ -39,7 +39,7 @@ class HashtagNode:
         for key, weight in self.nodeToWeight.items():
             # if key == 'fyp' or key == 'foryou' or key == 'viral' or key == 'foryoupage' or key == 'fy' or key == 'trending':
             #     continue
-            if weight > 20 and len(linklist) <= 5:
+            if weight > 20 and len(linklist) <= 10:
                 link = {
                     "source": self.value,
                     "target": key,

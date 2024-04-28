@@ -28,22 +28,23 @@ function App() {
           response = await fetch('http://localhost:5000/api/graph-user-data');
           console.log('fetching user data');
         }
-  
+
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
+      
         setGraphData(data);
       } catch (error) {
         console.error("Could not fetch graph data:", error);
       }
     };
-  
+
     console.log("contentMode changed:", contentMode); // Debugging statement
-  
+
     fetchGraphData();
   }, [contentMode]);
-  
+
 
   const handleMenuButtonClick = () => {
     setMenuOpen(!menuOpen);
@@ -63,24 +64,24 @@ function App() {
       <Menu isOpen={menuOpen} width={250} right onStateChange={({ isOpen }) => setMenuOpen(isOpen)}>
         {/* Add your menu items here */}
         <div>
-          <h2>Social Space</h2>
+          <h2>Social Space (WIP)</h2>
           <ToggleButtonGroup
-              exclusive
-              onChange={(event, newValue) => {
-                if (newValue !== null) {
-                  console.log('change mode');
-                  toggleMode(!contentMode);
-                }
-              }}
-            >
-              <ToggleButton value="General" style={contentMode ? { backgroundColor: '#d3d3d3' } : {}}>
-                General
-              </ToggleButton>
-              <ToggleButton value="User" style={!contentMode ? { backgroundColor: '#d3d3d3' } : {}}>
-                User
-              </ToggleButton>
+            exclusive
+            onChange={(event, newValue) => {
+              if (newValue !== null) {
+                console.log('change mode');
+                toggleMode(!contentMode);
+              }
+            }}
+          >
+            <ToggleButton value="General" style={contentMode ? { backgroundColor: '#d3d3d3' } : {}}>
+              General
+            </ToggleButton>
+            <ToggleButton value="User" style={!contentMode ? { backgroundColor: '#d3d3d3' } : {}}>
+              User
+            </ToggleButton>
           </ToggleButtonGroup>
-          <Search/>
+          <Search />
 
           <p><b>My Top Tags</b></p>
           <hr />
@@ -101,7 +102,7 @@ function App() {
         </div>
         <div className='bottom'>
           <button className="invite-button" onClick={inviteFriend}>Invite Friend</button>
-          
+
         </div>
       </Menu>
       <TheMap
