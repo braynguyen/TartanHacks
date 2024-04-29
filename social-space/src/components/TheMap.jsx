@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { ForceGraph3D, ThreeJSForceGraph } from 'react-force-graph';
+import { ForceGraph3D } from 'react-force-graph';
 // import * as THREE from 'three'; // Import the 'three' library
 
 

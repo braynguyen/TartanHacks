@@ -21,10 +21,10 @@ function App() {
         console.log("fetching");
         var response = '';
         if (contentMode) {
-          response = await fetch('http://localhost:5000/api/graph-data');
+          response = await fetch('http://3.142.164.246:5000/api/graph-data');
           console.log('fetching general data');
         } else {
-          response = await fetch('http://localhost:5000/api/graph-user-data');
+          response = await fetch('http://3.142.164.246:5000/api/graph-user-data');
           console.log('fetching user data');
         }
 
