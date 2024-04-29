@@ -1,13 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
 import { ForceGraph3D, ThreeJSForceGraph } from 'react-force-graph';
-import * as THREE from 'three'; // Import the 'three' library
+// import * as THREE from 'three'; // Import the 'three' library
 
 
 // Corrected the function component definition and destructuring props
 export default function TheMap({ graphData }) {
     const [selectedNode, setSelectedNode] = useState(null); // State to hold the selected node
     const [embed, setEmbed] = useState(null); // State to store the TikTok embed
-    const [searchedNode, setSearchedNode] = useState(null); // for search node for later
+    // const [searchedNode, setSearchedNode] = useState(null); // for search node for later
 
     // refs
     const fgRef = useRef(); // Reference to the ForceGraph3D component
@@ -72,7 +72,7 @@ export default function TheMap({ graphData }) {
                 onNodeClick={handleNodeClick}
                 enableNodeDrag={false}
                 showNavInfo={true}
-                linkOpacity={0.1}
+                linkOpacity={0.05}
                 nodeOpacity={0.85}
             />
 
