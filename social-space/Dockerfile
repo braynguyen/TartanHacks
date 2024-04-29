@@ -6,8 +6,10 @@ WORKDIR /react-docker
 COPY . .
 
 RUN npm install
+RUN npm install -g serve
+
 ENV HOST=0.0.0.0
 
-CMD ["npm", "start"]
+CMD ["serve", "-s", "build"]
 
 EXPOSE 3000
