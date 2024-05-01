@@ -8,6 +8,8 @@ import TheMap from './components/TheMap';
 import { useState, useEffect } from 'react';
 import { slide as Menu } from 'react-burger-menu';
 import Search from './components/search'; // Import the Search component
+import graphDataMinified from './graph_data_minified.json';
+import graphUserDataMinified from './graph_user_data_minified.json';
 
 
 function App() {
@@ -18,22 +20,28 @@ function App() {
   useEffect(() => {
     const fetchGraphData = async () => {
       try {
-        console.log("fetching");
-        var response = '';
+        // console.log("fetching");
+        // var response = '';
+        // if (contentMode) {
+        //   response = await fetch('http://localhost:5000/api/graph-data');
+        //   console.log('fetching general data');
+        // } else {
+        //   response = await fetch('http://localhost:5000/api/graph-user-data');
+        //   console.log('fetching user data');
+        // }
+
+        // if (!response.ok) {
+        //   throw new Error(`HTTP error! status: ${response.status}`);
+        // }
+        // const data = await response.json();
+        // console.log(data);
+        // console.log(graphDataMinified)
         if (contentMode) {
-          response = await fetch('localhost:5000/api/graph-data');
-          console.log('fetching general data');
+          setGraphData(graphDataMinified);
         } else {
-          response = await fetch('localhost:5000/api/graph-user-data');
-          console.log('fetching user data');
+          setGraphData(graphUserDataMinified);
         }
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-
-        setGraphData(data);
+      
       } catch (error) {
         console.error("Could not fetch graph data:", error);
       }
