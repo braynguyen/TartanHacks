@@ -10,6 +10,7 @@ import { slide as Menu } from 'react-burger-menu';
 import Search from './components/search'; // Import the Search component
 import graphDataMinified from './graph_data_minified.json';
 import graphUserDataMinified from './graph_user_data_minified.json';
+import PopUp from './components/PopPup';
 
 
 function App() {
@@ -63,6 +64,7 @@ function App() {
 
   return (
     <div className="App">
+      <PopUp />
       <Menu isOpen={menuOpen} width={250} right onStateChange={({ isOpen }) => setMenuOpen(isOpen)}>
         {/* Add your menu items here */}
         <div>
